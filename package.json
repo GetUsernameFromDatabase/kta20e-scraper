@@ -5,12 +5,13 @@
   "repository": "github:GetUsernameFromDatabase/kta20e-scraper",
   "main": "src/index.ts",
   "scripts": {
-    "start": "tsc && node dist/app.js",
+    "start": "tsc && node dist/index.js",
     "lint": "eslint . --ext .ts,.tsx"
   },
   "author": "Ryan Kruberg",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^15.6.0",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
     "eslint": "^7.26.0",
