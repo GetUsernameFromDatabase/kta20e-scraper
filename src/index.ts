@@ -2,6 +2,7 @@ import axios from 'axios';
 import { createWriteStream } from 'fs';
 import Path from 'path';
 import cheerio, { Element, NodeWithChildren } from 'cheerio';
+import { Stream } from 'stream';
 
 const baseURL = 'http://www.blastwave-comic.com/';
 /** in case getting image name from url fails - 'image' + imgCount */
@@ -10,7 +11,7 @@ const imgCount = 1;
 async function FetchHTML(URL: string) {
   try {
     const response = await axios.get(URL);
-    return await Promise.resolve<string>(response.data);
+    return await Promise.resolve<string>(response.data as string);
   } catch (error) {
     console.error(error);
     return;
@@ -39,7 +40,8 @@ class SaveImage {
       .then((response) => {
         const path = Path.resolve(process.cwd(), 'images', outputName);
         const writer = createWriteStream(path);
-        response.data.pipe(writer);
+        const data = response.data as Stream;
+        data.pipe(writer);
         return new Promise((resolve, reject) => {
           writer.on('finish', resolve);
           writer.on('error', reject);
